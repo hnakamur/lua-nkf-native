@@ -19,18 +19,11 @@ static luaL_Buffer output_buffer;
 #undef TRUE
 #undef FALSE
 
-static void nkf_putchar(unsigned char c) {
-  luaL_addchar(&output_buffer, (c));
-}
-#define putchar(c)  nkf_putchar(c)
-/* luaL_addchar(&output_buffer, (c)) */
+#define putchar(c)  luaL_addchar(&output_buffer, (c))
 
 #define PERL_XS 1
 #include "nkf/utf8tbl.c"
 #include "nkf/nkf.c"
-
-static void d() {
-}
 
 static int l_convert(lua_State *L) {
   const char *opt = luaL_checkstring(L, 1);
@@ -56,7 +49,6 @@ static int l_convert(lua_State *L) {
     return 3;
   }
 
-d();
   luaL_pushresult(&output_buffer);
   return 1;
 }
