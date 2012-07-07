@@ -32,7 +32,7 @@ static void nkf_putchar(unsigned char c) {
 static void d() {
 }
 
-static int l_nkf(lua_State *L) {
+static int l_convert(lua_State *L) {
   const char *opt = luaL_checkstring(L, 1);
   input = (const unsigned char *)luaL_checklstring(L, 2, &i_len);
 
@@ -63,7 +63,7 @@ d();
 }
 
 static const struct luaL_Reg nkf[] = {
-  {"nkf", l_nkf},
+  {"convert", l_convert},
   {NULL, NULL}
 };
 
