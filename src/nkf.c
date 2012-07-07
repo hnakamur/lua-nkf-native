@@ -36,8 +36,7 @@ static int l_convert(lua_State *L) {
   const char *opt = luaL_checkstring(L, 1);
   input = (const unsigned char *)luaL_checklstring(L, 2, &i_len);
 
-  nkf_state_init();
-  mimeout_mode = 0;
+  reinit();
 
   int ret = options((unsigned char *)opt);
   if (ret) {
