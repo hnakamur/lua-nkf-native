@@ -26,7 +26,6 @@ print(nkf.convert("-m -w", "=?ISO-2022-JP?B?"..konnichiwa_jis_base64.."?="))
 
 ## TODO
 * Add conditions for other OSes than mac in example.gyp.
-* Check whether memory leaks exist.
 
 ## License
 

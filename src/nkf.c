@@ -25,6 +25,21 @@ static luaL_Buffer output_buffer;
 #include "nkf/utf8tbl.c"
 #include "nkf/nkf.c"
 
+static void
+nkf_buf_dispose(nkf_buf_t *buf) {
+  nkf_xfree(buf->ptr);
+  nkf_xfree(buf);
+}
+
+static void
+nkf_state_dispose() {
+  nkf_buf_dispose(nkf_state->std_gc_buf);
+  nkf_buf_dispose(nkf_state->broken_buf);
+  nkf_buf_dispose(nkf_state->nfc_buf);
+  nkf_xfree(nkf_state);
+  nkf_state = NULL;
+}
+ 
 static int l_convert(lua_State *L) {
   const char *opt = luaL_checkstring(L, 1);
   input = (const unsigned char *)luaL_checklstring(L, 2, &i_len);
@@ -36,6 +51,7 @@ static int l_convert(lua_State *L) {
     lua_pushnil(L);
     lua_pushstring(L, "nkf options error");
     lua_pushnumber(L, ret);
+    nkf_state_dispose();
     return 3;
   }
 
@@ -46,10 +62,12 @@ static int l_convert(lua_State *L) {
     lua_pushnil(L);
     lua_pushstring(L, "nkf kanji_convert error");
     lua_pushnumber(L, ret);
+    nkf_state_dispose();
     return 3;
   }
 
   luaL_pushresult(&output_buffer);
+  nkf_state_dispose();
   return 1;
 }
 
