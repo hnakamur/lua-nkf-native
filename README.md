@@ -29,7 +29,7 @@ print(nkf.convert("-m -w", "=?ISO-2022-JP?B?"..konnichiwa_jis_base64.."?="))
 
 ## License
 
-MIT license, for more info see [LICENSE](https://raw.github.com/hnakamur/luvit-c-module-example/master/LICENSE).
+MIT license, for more info see [LICENSE](https://raw.github.com/hnakamur/lua-nkf-native/master/LICENSE).
 
 ## Credits
 Thanks a lot for [nkf project](http://sourceforge.jp/projects/nkf/).
